@@ -1,12 +1,12 @@
 class ApartmentsController < ApplicationController
   def index 
-    apts = Apartment.all 
+    apts = Apartment.all
     render json: apts
   end 
 
   def show 
     apt = find_apt
-    render json: apt 
+    render json: apt
   end 
 
   def update
@@ -15,10 +15,16 @@ class ApartmentsController < ApplicationController
     render json: apt
   end
 
+  def destroy 
+    apt = find_apt
+    apt.delete
+    render json: {}, status: :accepted
+  end
+
   private 
 
   def find_apt
-    Apartment.find_by(id: params[:id])
+    Apartment.find(id: params[:id])
   end
 
   def apt_params 
