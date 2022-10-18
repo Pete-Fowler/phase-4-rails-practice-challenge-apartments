@@ -9,13 +9,18 @@ class ApartmentsController < ApplicationController
     render json: apt
   end 
 
+  def create 
+    apt = Apartment.create!(apt_params)
+    render json: apt, status: :created
+  end
+
   def update
     apt = find_apt
     apt.update!(apt_params)
     render json: apt
   end
 
-  def destroy 
+  def destroy
     apt = find_apt
     apt.delete
     render json: {}, status: :accepted
@@ -24,7 +29,7 @@ class ApartmentsController < ApplicationController
   private 
 
   def find_apt
-    Apartment.find(id: params[:id])
+    Apartment.find(params[:id])
   end
 
   def apt_params 
